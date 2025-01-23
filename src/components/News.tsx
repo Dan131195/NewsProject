@@ -11,12 +11,10 @@ const News = () => {
   interface News {
     id: number;
     title: string;
-    authors: [
-      {
-        name: string;
-        socials: unknown;
-      }
-    ];
+    authors: {
+      name: string;
+      socials: unknown;
+    };
     url: string;
     image_url: string;
     news_site: string;
@@ -73,7 +71,7 @@ const News = () => {
                   <Card.Body>
                     <Card.Title>{result.title}</Card.Title>
                     <div className="d-flex justify-content-between align-items-baseline">
-                      <Card.Text>{result.authors[0].name}</Card.Text>
+                      <Card.Text>{result.authors.name}</Card.Text>
                       <Card.Text>{result.published_at.slice(0, 10)}</Card.Text>
                     </div>
                   </Card.Body>

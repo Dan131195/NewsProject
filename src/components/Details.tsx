@@ -51,7 +51,7 @@ const Details = () => {
       <p>
         {details && (
           <Container>
-            <Row>
+            <Row className=" justify-content-center my-3">
               <Col xs={12} md={8}>
                 <Card>
                   <Card.Img variant="top" src={details.image_url} />
@@ -59,6 +59,7 @@ const Details = () => {
                     <Card.Title>{details.title}</Card.Title>
                     <Card.Text>{details.summary}</Card.Text>
                     <Card.Text>{details.summary}</Card.Text>
+                    <hr />
                     <div className="d-flex  justify-content-between">
                       <Card.Text>{details.authors[0].name}</Card.Text>
                       <Card.Text>{details.published_at.slice(0, 10)}</Card.Text>
