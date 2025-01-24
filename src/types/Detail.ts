@@ -1,4 +1,4 @@
-export interface News {
+export interface Detail {
   id: number;
   title: string;
   authors: Author[];
@@ -7,18 +7,13 @@ export interface News {
   news_site: string;
   summary: string;
   published_at: string;
-  updated_at: string;
+  updated_at: Date;
   featured: boolean;
-  launches: Launch[];
-  events: null;
+  launches: unknown;
+  events: unknown;
 }
 
 interface Author {
   name: string;
   socials: null;
-}
-
-interface Launch {
-  launch_id: string;
-  provider: string;
 }

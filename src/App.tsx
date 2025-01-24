@@ -6,6 +6,7 @@ import CarouselNews from "./components/CarouselNews";
 import Details from "./components/Details";
 import NotFound from "./components/NotFound";
 import News from "./components/News";
+import MyFooter from "./components/MyFooter";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/details/:id" element={<Details />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <MyFooter />
       </BrowserRouter>
     </>
   );
