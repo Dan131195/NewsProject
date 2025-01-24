@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { News } from "../types/News";
 import { useEffect, useState, useRef } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
 
 const CarouselNews = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0); // Tiene traccia della slide corrente
-  const trackRef = useRef<HTMLDivElement>(null); // Ref per accedere al track
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -17,6 +19,7 @@ const CarouselNews = () => {
         "https://api.spaceflightnewsapi.net/v4/articles"
       );
       if (response.ok) {
+        setIsLoading(false);
         const data = await response.json();
         setNewsData(data.results);
       } else {
@@ -24,11 +27,13 @@ const CarouselNews = () => {
       }
     } catch (error) {
       console.log("error", error);
+      setIsLoading(false);
+      setIsError(true);
     }
   };
 
   useEffect(() => {
-    getNews();
+    setTimeout(getNews, 1000);
   }, []);
 
   const handleNext = () => {
@@ -54,7 +59,16 @@ const CarouselNews = () => {
 
   return (
     <>
-      {newsData && (
+      {isError && (
+        <Alert variant="danger" className="w-75 m-auto mt-5 text-center">
+          ERROR: Errore nel recupero dati...
+        </Alert>
+      )}
+      {isLoading && !isError ? (
+        <Container className="text-center mt-5">
+          <Spinner animation="border" variant="primary" />
+        </Container>
+      ) : (
         <Container>
           <Row className="justify-content-center mt-2">
             <Col xs={12} md={8}>
@@ -92,7 +106,7 @@ const CarouselNews = () => {
                     ))}
                   </div>
                 </div>
-                <div className="d-flex justify-content-between mt-2">
+                <div className="d-flex justify-content-between w-75 m-auto mt-2">
                   <Button
                     className="prev btn btn-dark"
                     onClick={handlePrev}
